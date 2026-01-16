@@ -1,0 +1,69 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Doomsday Clock</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #0e0e0e;
+    color: #f2f2f2;
+    text-align: center;
+    padding-top: 60px;
+}
+h1 { font-size: 2.8em; }
+#countdown { font-size: 3.2em; margin: 25px 0; font-weight: bold; }
+#status { font-size: 1.5em; }
+.footer { margin-top: 40px; font-size: 0.9em; opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<h1>☢️ Doomsday Clock</h1>
+<h2>31 March 2027</h2>
+
+<div id="countdown">Calculating inevitable outcome…</div>
+<div id="status"></div>
+
+<div class="footer">
+Countdown accuracy: ± one coffee break.
+</div>
+
+<script>
+const doomsday = new Date("2027-03-31T00:00:00");
+
+function updateCountdown() {
+    const now = new Date();
+    let diff = doomsday - now;
+
+    if (diff <= 0) {
+        countdown.textContent = "00d 00h 00m 00s";
+        status.textContent = "☠️ MIDNIGHT — Doomsday has arrived.";
+        return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    countdown.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+    let msg = "🟢 All Calm — suspiciously quiet";
+    if (days < 365) msg = "🟡 Mild Concern — meetings multiplying";
+    if (days < 180) msg = "🟠 Heightened Alert — planning underway";
+    if (days < 90) msg = "🔴 Critical — emails intensifying";
+    if (days < 30) msg = "☢️ Imminent — nobody agrees on anything";
+    if (days < 7) msg = "☠️ MIDNIGHT APPROACHING";
+
+    status.textContent = msg;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
